@@ -1,0 +1,14 @@
+import requests
+from bs4 import BeautifulSoup
+
+URL = 'https://www.ft.com/search?q=Hong%20Kong&page=4&dateRange=now-7d&sort=relevance&expandRefinements=true'
+page = requests.get(URL)
+soup = BeautifulSoup(page.content, 'html.parser')
+results = soup.find(id='')
+
+ft_elems = results.find_all('div', class_="o-teaser__timestamp")
+
+for ft_elem in ft_elems:
+    time = ft_elem.find('time', class_="o-teaser__timestamp-date")
+    
+    print(time.text)
