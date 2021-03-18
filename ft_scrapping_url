@@ -1,0 +1,10 @@
+from lxml import html
+import requests
+main_url = "https://www.ft.com/search?q=Hong%20Kong&page=4&dateRange=now-7d&sort=relevance&expandRefinements=true"
+page = requests.get(main_url)
+tree = html.fromstring(page.content)
+all_url = tree.xpath('//a[@class="js-teaser-heading-link"]/@href')
+
+for url in all_url:
+    in_url = 'http://www.ft.com'+url
+    print(in_url)
